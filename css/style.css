@@ -4178,6 +4178,10 @@ select.country_to_state {
 	float: none;
 	margin-top: 30px; }
 
+.plcace-button{
+	color: white;
+}
+
 abbr.required {
 	color: #f34937; }
 

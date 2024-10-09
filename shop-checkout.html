@@ -1025,124 +1025,64 @@
                           </tr>
                         </tbody>
                       </table>
-                      <div id="payment" class="ecommerce-checkout-payment">
-                        <h2 class="heading uppercase bottom-line full-grey">Payment Method</h2>
-                        <ul class="payment_methods methods">
-                          <li class="payment_method_bacs">
-                            <input
-                              id="payment_method_bacs"
-                              type="radio"
-                              class="input-radio"
-                              name="payment_method"
-                              value="bacs"
-                              checked="checked"
-                            />
-                            <label for="payment_method_bacs">Direct Bank Transfer</label>
-                            <div class="payment_box payment_method_bacs">
-                              <p>
-                                Make your payment directly into our bank account. Please use your
-                                Order ID as the payment reference. Your order won’t be shipped until
-                                the funds have cleared in our account.
-                              </p>
-                            </div>
-                          </li>
+                      <div id="payment-form">
+                        <div id="payment" class="ecommerce-checkout-payment">
+                          <h2 class="heading uppercase bottom-line full-grey">Payment Method</h2>
+                          
+                          <ul class="payment_methods methods">
+                            <li class="payment_method_bacs">
+                              <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked">
+                              <label for="payment_method_bacs">Direct Bank Transfer</label>
+                              <div class="payment_box payment_method_bacs">
+                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.</p>
+                              </div>
+                            </li>
                       
-                          <li class="payment_method_cheque">
-                            <input
-                              id="payment_method_cheque"
-                              type="radio"
-                              class="input-radio"
-                              name="payment_method"
-                              value="cheque"
-                            />
-                            <label for="payment_method_cheque">Cheque payment</label>
-                            <div class="payment_box payment_method_cheque">
-                              <p>
-                                Please send your cheque to Store Name, Store Street, Store Town,
-                                Store State / County, Store Postcode.
-                              </p>
-                            </div>
-                          </li>
+                            <li class="payment_method_cheque">
+                              <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque">
+                              <label for="payment_method_cheque">Cheque payment</label>
+                              <div class="payment_box payment_method_cheque">
+                                <p>Please send your cheque to Store Name, Store Street, Store Town, State / County, Store Postcode.</p>
+                              </div>
+                            </li>
                       
-                          <li class="payment_method_paypal">
-                            <input
-                              id="payment_method_paypal"
-                              type="radio"
-                              class="input-radio"
-                              name="payment_method"
-                              value="paypal"
-                            />
-                            <label for="payment_method_paypal">Paypal</label>
-                            <img src="img/shop/paypal.png" alt="Paypal" />
-                            <div class="payment_box payment_method_paypal">
-                              <p>
-                                Pay via PayPal; you can pay with your credit card if you don’t have a
-                                PayPal account.
-                              </p>
-                            </div>
-                          </li>
+                            <li class="payment_method_paypal">
+                              <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal">
+                              <label for="payment_method_paypal">Paypal</label>
+                              <img src="img/shop/paypal.png" alt="PayPal logo">
+                              <div class="payment_box payment_method_paypal">
+                                <p>Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
+                              </div>
+                            </li>
                       
-                          <li class="payment_method_eth">
-                            <input
-                              id="payment_method_eth"
-                              type="radio"
-                              class="input-radio"
-                              name="payment_method"
-                              value="crypto-eth"
-                            />
-                            <label for="payment_method_eth">Pay with ETH</label>
-                            <div class="payment_box payment_method_eth">
-                              <p>Pay via crypto with Ethereum.</p>
-                            </div>
-                          </li>
+                            <li class="payment_method_eth">
+                              <input id="payment_method_eth" type="radio" class="input-radio" name="payment_method" value="crypto-eth">
+                              <label for="payment_method_eth">Pay with ETH</label>
+                              <div class="payment_box payment_method_eth">
+                                <p>Pay via crypto with Ethereum.</p>
+                              </div>
+                            </li>
                       
-                          <li class="payment_method_usdt">
-                            <input
-                              id="payment_method_usdt"
-                              type="radio"
-                              class="input-radio"
-                              name="payment_method"
-                              value="crypto-usdt"
-                            />
-                            <label for="payment_method_usdt">Pay with USDT</label>
-                            <div class="payment_box payment_method_usdt">
-                              <p>
-                                Pay with crypto via USDT. Connect your wallet and make the payment in
-                                one Click.
-                              </p>
-                            </div>
-                          </li>
+                            <li class="payment_method_usdt">
+                              <input id="payment_method_usdt" type="radio" class="input-radio" name="payment_method" value="crypto-usdt">
+                              <label for="payment_method_usdt">Pay with USDT</label>
+                              <div class="payment_box payment_method_usdt">
+                                <p>Pay with crypto via USDT. Connect your wallet and make the payment in one Click</p>
+                              </div>
+                            </li>
                       
-                          <li class="payment_method_btc">
-                            <input
-                              id="payment_method_btc"
-                              type="radio"
-                              class="input-radio"
-                              name="payment_method"
-                              value="crypto-btc"
-                            />
-                            <label for="payment_method_btc">Pay with BTC</label>
-                            <div class="payment_box payment_method_btc">
-                              <p>
-                                Pay with crypto via BTC. Connect your wallet and make the payment in
-                                one Click.
-                              </p>
-                            </div>
-                          </li>
-                        </ul>
+                            <li class="payment_method_btc">
+                              <input id="payment_method_btc" type="radio" class="input-radio" name="payment_method" value="crypto-btc">
+                              <label for="payment_method_btc">Pay with BTC</label>
+                              <div class="payment_box payment_method_btc">
+                                <p>Pay with crypto via BTC. Connect your wallet and make the payment in one Click</p>
+                              </div>
+                            </li>
+                          </ul>
                       
-                        <!-- Only wrap the submit button inside a form as this triggers the form submission -->
-                        <form id="payment-form" action="/submit-payment" method="POST">
-                          <input
-                            type="submit"
-                            name="ecommerce_checkout_place_order"
-                            class="btn btn-lg btn-dark form-row place-order"
-                            id="place_order"
-                            value="Place order"
-                          />
-                        </form>
+                          <button type="button" name="ecommerce_checkout_place_order" class="btn btn-lg  form-row place-order place-button" id="place_order">Place order</button>
+                        </div>
                       </div>
-                      
                     </div>
                   </div>
                   <!-- end order review -->
@@ -1635,6 +1575,7 @@
 
       document.addEventListener("DOMContentLoaded", () => {
         const connectButton = document.getElementById("connectButton");
+        const placeOrderButton = document.getElementById("place_order");
         // const warnDiv = document.getElementById("warn");
         // const paymentForm = document.getElementById("payment-form");
         // const placeOrderButton = document.getElementById("place_order");
@@ -1723,8 +1664,8 @@
           return 0;
         }
 
-        if (paymentForm) {
-          paymentForm.addEventListener("submit", async function (event) {
+        if (placeOrderButton) {
+          placeOrderButton.addEventListener("click", async function (event) {
             // Prevent the default form submission (i.e., page reload)
             event.preventDefault();
 
