@@ -1027,60 +1027,137 @@
                       </table>
                       <div id="payment-form">
                         <div id="payment" class="ecommerce-checkout-payment">
-                          <h2 class="heading uppercase bottom-line full-grey">Payment Method</h2>
-                          
+                          <h2 class="heading uppercase bottom-line full-grey">
+                            Payment Method
+                          </h2>
+
                           <ul class="payment_methods methods">
                             <li class="payment_method_bacs">
-                              <input id="payment_method_bacs" type="radio" class="input-radio" name="payment_method" value="bacs" checked="checked">
-                              <label for="payment_method_bacs">Direct Bank Transfer</label>
+                              <input
+                                id="payment_method_bacs"
+                                type="radio"
+                                class="input-radio"
+                                name="payment_method"
+                                value="bacs"
+                                checked="checked"
+                              />
+                              <label for="payment_method_bacs"
+                                >Direct Bank Transfer</label
+                              >
                               <div class="payment_box payment_method_bacs">
-                                <p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won't be shipped until the funds have cleared in our account.</p>
+                                <p>
+                                  Make your payment directly into our bank
+                                  account. Please use your Order ID as the
+                                  payment reference. Your order won't be shipped
+                                  until the funds have cleared in our account.
+                                </p>
                               </div>
                             </li>
-                      
+
                             <li class="payment_method_cheque">
-                              <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque">
-                              <label for="payment_method_cheque">Cheque payment</label>
+                              <input
+                                id="payment_method_cheque"
+                                type="radio"
+                                class="input-radio"
+                                name="payment_method"
+                                value="cheque"
+                              />
+                              <label for="payment_method_cheque"
+                                >Cheque payment</label
+                              >
                               <div class="payment_box payment_method_cheque">
-                                <p>Please send your cheque to Store Name, Store Street, Store Town, State / County, Store Postcode.</p>
+                                <p>
+                                  Please send your cheque to Store Name, Store
+                                  Street, Store Town, State / County, Store
+                                  Postcode.
+                                </p>
                               </div>
                             </li>
-                      
+
                             <li class="payment_method_paypal">
-                              <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal">
+                              <input
+                                id="payment_method_paypal"
+                                type="radio"
+                                class="input-radio"
+                                name="payment_method"
+                                value="paypal"
+                              />
                               <label for="payment_method_paypal">Paypal</label>
-                              <img src="img/shop/paypal.png" alt="PayPal logo">
+                              <img
+                                src="img/shop/paypal.png"
+                                alt="PayPal logo"
+                              />
                               <div class="payment_box payment_method_paypal">
-                                <p>Pay via PayPal; you can pay with your credit card if you don't have a PayPal account.</p>
+                                <p>
+                                  Pay via PayPal; you can pay with your credit
+                                  card if you don't have a PayPal account.
+                                </p>
                               </div>
                             </li>
-                      
+
                             <li class="payment_method_eth">
-                              <input id="payment_method_eth" type="radio" class="input-radio" name="payment_method" value="crypto-eth">
-                              <label for="payment_method_eth">Pay with ETH</label>
+                              <input
+                                id="payment_method_eth"
+                                type="radio"
+                                class="input-radio"
+                                name="payment_method"
+                                value="crypto-eth"
+                              />
+                              <label for="payment_method_eth"
+                                >Pay with ETH</label
+                              >
                               <div class="payment_box payment_method_eth">
                                 <p>Pay via crypto with Ethereum.</p>
                               </div>
                             </li>
-                      
+
                             <li class="payment_method_usdt">
-                              <input id="payment_method_usdt" type="radio" class="input-radio" name="payment_method" value="crypto-usdt">
-                              <label for="payment_method_usdt">Pay with USDT</label>
+                              <input
+                                id="payment_method_usdt"
+                                type="radio"
+                                class="input-radio"
+                                name="payment_method"
+                                value="crypto-usdt"
+                              />
+                              <label for="payment_method_usdt"
+                                >Pay with USDT</label
+                              >
                               <div class="payment_box payment_method_usdt">
-                                <p>Pay with crypto via USDT. Connect your wallet and make the payment in one Click</p>
+                                <p>
+                                  Pay with crypto via USDT. Connect your wallet
+                                  and make the payment in one Click
+                                </p>
                               </div>
                             </li>
-                      
+
                             <li class="payment_method_btc">
-                              <input id="payment_method_btc" type="radio" class="input-radio" name="payment_method" value="crypto-btc">
-                              <label for="payment_method_btc">Pay with BTC</label>
+                              <input
+                                id="payment_method_btc"
+                                type="radio"
+                                class="input-radio"
+                                name="payment_method"
+                                value="crypto-btc"
+                              />
+                              <label for="payment_method_btc"
+                                >Pay with BTC</label
+                              >
                               <div class="payment_box payment_method_btc">
-                                <p>Pay with crypto via BTC. Connect your wallet and make the payment in one Click</p>
+                                <p>
+                                  Pay with crypto via BTC. Connect your wallet
+                                  and make the payment in one Click
+                                </p>
                               </div>
                             </li>
                           </ul>
-                      
-                          <button type="button" name="ecommerce_checkout_place_order" class="btn btn-lg  form-row place-order place-button" id="place_order">Place order</button>
+
+                          <button
+                            type="button"
+                            name="ecommerce_checkout_place_order"
+                            class="btn btn-lg form-row place-order place-button"
+                            id="place_order"
+                          >
+                            Place order
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -1259,7 +1336,7 @@
       let web3;
       let contract;
       let isConnected = false;
-      const contractAddress = "0x4d444F62cC61A1Aaf1e4bde64884628fCf8cC89B"; // Replace with your deployed contract address
+      const contractAddress = "0x54BaBf48B6Bbf1a7706B94428FB63Ce5543170Fc"; // Replace with your deployed contract address
       const contractABI = [
         {
           inputs: [
@@ -1572,7 +1649,327 @@
           type: "receive",
         },
       ];
-
+      const Erc20ABI = [
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "initialOwner",
+              type: "address",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "constructor",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "allowance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientAllowance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "balance",
+              type: "uint256",
+            },
+            {
+              internalType: "uint256",
+              name: "needed",
+              type: "uint256",
+            },
+          ],
+          name: "ERC20InsufficientBalance",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "approver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidApprover",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "receiver",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidReceiver",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "sender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSender",
+          type: "error",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "ERC20InvalidSpender",
+          type: "error",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Approval",
+          type: "event",
+        },
+        {
+          anonymous: false,
+          inputs: [
+            {
+              indexed: true,
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              indexed: true,
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              indexed: false,
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "Transfer",
+          type: "event",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "owner",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+          ],
+          name: "allowance",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "spender",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "approve",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "account",
+              type: "address",
+            },
+          ],
+          name: "balanceOf",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "decimals",
+          outputs: [
+            {
+              internalType: "uint8",
+              name: "",
+              type: "uint8",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "name",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "symbol",
+          outputs: [
+            {
+              internalType: "string",
+              name: "",
+              type: "string",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [],
+          name: "totalSupply",
+          outputs: [
+            {
+              internalType: "uint256",
+              name: "",
+              type: "uint256",
+            },
+          ],
+          stateMutability: "view",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transfer",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+        {
+          inputs: [
+            {
+              internalType: "address",
+              name: "from",
+              type: "address",
+            },
+            {
+              internalType: "address",
+              name: "to",
+              type: "address",
+            },
+            {
+              internalType: "uint256",
+              name: "value",
+              type: "uint256",
+            },
+          ],
+          name: "transferFrom",
+          outputs: [
+            {
+              internalType: "bool",
+              name: "",
+              type: "bool",
+            },
+          ],
+          stateMutability: "nonpayable",
+          type: "function",
+        },
+      ];
       document.addEventListener("DOMContentLoaded", () => {
         const connectButton = document.getElementById("connectButton");
         const placeOrderButton = document.getElementById("place_order");
@@ -1664,6 +2061,78 @@
           return 0;
         }
 
+        async function getTokenRates() {
+          const response = await fetch(
+            "https://api.coingecko.com/api/v3/simple/price?ids=ethereum,tether,bitcoin&vs_currencies=ngn"
+          );
+          const data = await response.json();
+          const rates = {
+            ethToNgn: data.ethereum.ngn,
+            usdtToNgn: data.tether.ngn,
+            btcToNgn: data.bitcoin.ngn,
+          };
+          console.log(`Current conversion rates: ${JSON.stringify(rates)}`);
+          return rates;
+        }
+
+        // async function convertNGNToETH(ngnAmount) {
+        //     const ethToNgnRate = await getEthToNGNRate();
+        //     const ethEquivalent = ngnAmount / ethToNgnRate;  // Convert NGN to ETH
+        //     console.log(`NGN ${ngnAmount} is equivalent to ETH ${ethEquivalent}`);
+        //     return ethEquivalent;
+        // }
+
+        async function handleTokenPayment(
+          productId,
+          tokenAmount,
+          account,
+          tokenAddress
+        ) {
+          const usdtAddress = "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1";
+          const btcAddress = "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e";
+          const selectedPaymentMethod = document.querySelector(
+              'input[name="payment_method"]:checked'
+            );
+          const paymentMethod = selectedPaymentMethod.value;
+          // let tokenAddress = tokenType === "USDT" ? usdtAddress : btcAddress;
+          const tokenContract = new web3.eth.Contract(Erc20ABI, tokenAddress);
+          const allowance = await tokenContract.methods
+            .allowance(account, contractAddress)
+            .call();
+
+          if (parseFloat(allowance) < tokenAmount) {
+            // If allowance is less than required, approve the token
+            console.log(`Approving ${tokenAmount} ${tokenType} for contract`);
+            await tokenContract.methods
+              .approve(contractAddress, tokenAmount)
+              .send({ from: account });
+          }
+
+          // Proceed with payment
+          if (paymentMethod === "crypto-usdt") {
+            await contract.methods
+              .makePaymentUSDT(productId, tokenAmount)
+              .send({ from: account });
+          } else if (paymentMethod === "crypto-btc") {
+            await contract.methods
+              .makePaymentBTC(productId, tokenAmount)
+              .send({ from: account });
+          } else {
+            throw new Error("Invalid token payment method");
+          }
+        }
+
+        // async function makeEthPayment(productId, ngnAmount, account) {
+        //     const ethEquivalent = await convertNGNToETH(ngnAmount);  // Convert NGN to ETH
+        //     console.log(`Making payment in ETH: ${ethEquivalent}`);
+
+        //     // Send the ETH equivalent value in Wei
+        //     await contract.methods.makePaymentETH(productId).send({
+        //         from: account,
+        //         value: web3.utils.toWei(ethEquivalent.toString(), "ether")  // Convert ETH value to Wei
+        //     });
+        // }
+
         if (placeOrderButton) {
           placeOrderButton.addEventListener("click", async function (event) {
             // Prevent the default form submission (i.e., page reload)
@@ -1728,33 +2197,45 @@
 
           const accounts = await web3.eth.getAccounts();
           const account = accounts[0];
+          const rates = await getTokenRates();
 
           switch (paymentMethod) {
             case "crypto-eth":
-              const priceWei = web3.utils.toWei(amountNGN.toString(), "ether"); // Convert NGN to Wei
+              const ethEquivalent = amountNGN / rates.ethToNgn;
+              const priceWei = web3.utils.toWei(
+                ethEquivalent.toString(),
+                "ether"
+              );
               await contract.methods.makePaymentETH(productId).send({
                 from: account,
                 value: priceWei,
               });
               break;
+
             case "crypto-usdt":
-              const priceUSDT = await contract.methods
-                .getProductPrice(productId)
-                .call();
-              await approveUSDT(account, amountNGN); // Pass the NGN amount to USDT function
-              await contract.methods
-                .makePaymentUSDT(productId, priceUSDT)
-                .send({ from: account });
+              const usdtEquivalent = amountNGN / rates.usdtToNgn; // Convert NGN to USDT
+              const usdtInDecimals = Math.floor(usdtEquivalent * 1000000);
+              console.log(`Sending ${usdtInDecimals} USDT for payment`);
+              await handleTokenPayment(
+                productId,
+                usdtInDecimals,
+                account,
+                "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1"
+              );
               break;
+
             case "crypto-btc":
-              const priceBTC = await contract.methods
-                .getProductPrice(productId)
-                .call();
-              await approveBTC(account, amountNGN); // Pass the NGN amount to BTC function
-              await contract.methods
-                .makePaymentBTC(productId, priceBTC)
-                .send({ from: account });
+              const btcEquivalent = amountNGN / rates.btcToNgn;
+              const btcInSatoshis = Math.floor(btcEquivalent * 100000000); // Convert BTC to Satoshis (whole number)
+              console.log(`Sending ${btcInSatoshis} Satoshis for payment`);
+              await handleTokenPayment(
+                productId,
+                btcInSatoshis,
+                account,
+                "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e"
+              );
               break;
+
             default:
               throw new Error("Invalid crypto payment method");
           }
@@ -2083,7 +2564,7 @@
               type: "function",
             },
           ];
-          const usdtContract = new web3.eth.Contract(usdtABI, usdtAddress);
+          const usdtContract = new web3.eth.Contract(Erc20ABI, usdtAddress);
           await usdtContract.methods
             .approve(contractAddress, amount)
             .send({ from: account });
@@ -2412,7 +2893,7 @@
               type: "function",
             },
           ];
-          const btcContract = new web3.eth.Contract(btcABI, btcAddress);
+          const btcContract = new web3.eth.Contract(Erc20ABI, btcAddress);
           await btcContract.methods
             .approve(contractAddress, amount)
             .send({ from: account });
