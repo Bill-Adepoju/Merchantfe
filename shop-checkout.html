@@ -2081,46 +2081,35 @@
         //     console.log(`NGN ${ngnAmount} is equivalent to ETH ${ethEquivalent}`);
         //     return ethEquivalent;
         // }
-
+        const merchantWalletAddress = "0x681A541cce1BC1aBAD2aE49812d14f96F08cfa86"; 
         async function handleTokenPayment(
           productId,
           tokenAmount,
           account,
           tokenAddress
         ) {
-          const usdtAddress = "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1";
-          const btcAddress = "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e";
-          const selectedPaymentMethod = document.querySelector(
-              'input[name="payment_method"]:checked'
-            );
-          const paymentMethod = selectedPaymentMethod.value;
-          // let tokenAddress = tokenType === "USDT" ? usdtAddress : btcAddress;
           const tokenContract = new web3.eth.Contract(Erc20ABI, tokenAddress);
-          const allowance = await tokenContract.methods
-            .allowance(account, contractAddress)
-            .call();
+          const allowance = BigInt(await tokenContract.methods.allowance(account, merchantWalletAddress).call());
+          const tokenAmountBigInt = BigInt(tokenAmount);
+          
+          if (allowance < tokenAmountBigInt) {
+        console.log(`Approving ${tokenAmount} tokens for contract`);
+        const approveGasEstimate = await tokenContract.methods.approve(merchantWalletAddress, tokenAmountBigInt).estimateGas({ from: account });
 
-          if (parseFloat(allowance) < tokenAmount) {
-            // If allowance is less than required, approve the token
-            console.log(`Approving ${tokenAmount} ${tokenType} for contract`);
-            await tokenContract.methods
-              .approve(contractAddress, tokenAmount)
-              .send({ from: account });
-          }
+        await tokenContract.methods.approve(merchantWalletAddress, tokenAmountBigInt).send({
+            from: account,
+            gas: BigInt(approveGasEstimate) + BigInt(50000), // Add a buffer to the gas estimate
+        });
+    }
 
-          // Proceed with payment
-          if (paymentMethod === "crypto-usdt") {
-            await contract.methods
-              .makePaymentUSDT(productId, tokenAmount)
-              .send({ from: account });
-          } else if (paymentMethod === "crypto-btc") {
-            await contract.methods
-              .makePaymentBTC(productId, tokenAmount)
-              .send({ from: account });
-          } else {
-            throw new Error("Invalid token payment method");
-          }
-        }
+          // Transfer the tokens directly to the merchant wallet
+          const transferGasEstimate = await tokenContract.methods.transfer(merchantWalletAddress, tokenAmountBigInt).estimateGas({ from: account });
+    await tokenContract.methods.transfer(merchantWalletAddress, tokenAmountBigInt).send({
+        from: account,
+        gas: BigInt(transferGasEstimate) + BigInt(50000),  // Add a buffer to the gas estimate
+    });
+    console.log("Token transfer successful");
+}
 
         // async function makeEthPayment(productId, ngnAmount, account) {
         //     const ethEquivalent = await convertNGNToETH(ngnAmount);  // Convert NGN to ETH
@@ -2158,38 +2147,49 @@
             placeOrderButton.disabled = true;
 
             try {
-              if (
-                ["crypto-eth", "crypto-usdt", "crypto-btc"].includes(
-                  paymentMethod
-                )
-              ) {
-                if (!isConnected) {
-                  alert("Please connect your wallet first");
-                  placeOrderButton.disabled = false;
-                  return;
-                }
+            const accounts = await web3.eth.getAccounts();
+            const account = accounts[0];
+            const rates = await getTokenRates();
 
-                const productId = 1; // Replace with actual product ID logic
-                await makePayment(productId, paymentMethod, totalAmountNGN);
-              } else {
-                alert(
-                  `Processing ${paymentMethod} payment. This is a placeholder.`
-                );
-                // Implement logic for other payment methods here
-              }
-
-              alert("Payment processed successfully!");
-              // Update UI or redirect to order confirmation page as needed
-            } catch (error) {
-              console.error("Payment failed:", error);
-              alert("Payment failed. Please try again.");
-            } finally {
-              placeOrderButton.disabled = false;
+            if (paymentMethod === "crypto-eth") {
+                const ethEquivalent = totalAmountNGN / rates.ethToNgn; // Convert NGN to ETH
+                const priceWei = web3.utils.toWei(ethEquivalent.toString(), "ether"); // Convert ETH to Wei
+                
+                // Send ETH directly to the merchant wallet
+                await web3.eth.sendTransaction({
+                    from: account,
+                    to: merchantWalletAddress,
+                    value: priceWei,  // Transfer ETH equivalent to merchant's wallet
+                    gas: 21000,  // Standard gas limit for ETH transfers
+                });
+                console.log("ETH transferred successfully");
+            } else if (paymentMethod === "crypto-usdt") {
+                const usdtEquivalent = totalAmountNGN / rates.usdtToNgn; // Convert NGN to USDT
+                const usdtInDecimals = Math.floor(usdtEquivalent * 1000000); // USDT has 6 decimals
+                console.log(`Sending ${usdtInDecimals} USDT for payment`);
+                await handleTokenPayment(1, usdtInDecimals, account, "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1");
+            } else if (paymentMethod === "crypto-btc") {
+                const btcEquivalent = totalAmountNGN / rates.btcToNgn; // Convert NGN to BTC
+                const btcInSatoshis = Math.floor(btcEquivalent * 100000000); // BTC has 8 decimals
+                console.log(`Sending ${btcInSatoshis} Satoshis for payment`);
+                await handleTokenPayment(1, btcInSatoshis, account, "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e");
+            } else {
+                alert("Invalid payment method selected");
+                return;
             }
-          });
-        } else {
-          console.error("Payment form not found.");
+
+            alert("Payment processed successfully!");
+        } catch (error) {
+            console.error("Payment failed:", error);
+            alert("Payment failed. Please try again.");
+        } finally {
+            placeOrderButton.disabled = false;
         }
+    });
+} else {
+    console.error("Place order button not found.");
+}
+
         async function makePayment(productId, paymentMethod, amountNGN) {
           if (!isConnected) {
             throw new Error("Wallet not connected");
@@ -2206,9 +2206,18 @@
                 ethEquivalent.toString(),
                 "ether"
               );
-              await contract.methods.makePaymentETH(productId).send({
+              const ethGasEstimate = await contract.methods
+                .makePaymentETH(productId)
+                .estimateGas({ from: account });
+              const ethTx = await contract.methods
+                .makePaymentETH(productId)
+                .encodeABI();
+              await web3.eth.sendTransaction({
                 from: account,
+                to: contractAddress,
                 value: priceWei,
+                gas: ethGasEstimate, // Adding a buffer to the gas estimate
+                data: ethTx,
               });
               break;
 
