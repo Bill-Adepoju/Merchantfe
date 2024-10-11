@@ -2144,12 +2144,20 @@
               return;
             }
 
+            if (!isConnected) {
+            alert("Please connect your wallet first");
+            placeOrderButton.disabled = false;
+            return; // Exit the function if not connected
+        }
+
             placeOrderButton.disabled = true;
 
             try {
             const accounts = await web3.eth.getAccounts();
             const account = accounts[0];
             const rates = await getTokenRates();
+
+            
 
             if (paymentMethod === "crypto-eth") {
                 const ethEquivalent = totalAmountNGN / rates.ethToNgn; // Convert NGN to ETH
