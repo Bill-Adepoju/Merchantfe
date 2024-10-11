@@ -2091,8 +2091,11 @@
           const tokenContract = new web3.eth.Contract(Erc20ABI, tokenAddress);
           const allowance = BigInt(await tokenContract.methods.allowance(account, merchantWalletAddress).call());
           const tokenAmountBigInt = BigInt(tokenAmount);
+
+          console.log(`Allowance for ${tokenAddress}: ${allowance}`);
+    console.log(`Token amount for payment: ${tokenAmountBigInt}`);
           
-          if (allowance < tokenAmountBigInt) {
+          if (allowance > tokenAmountBigInt) {
         console.log(`Approving ${tokenAmount} tokens for contract`);
         const approveGasEstimate = await tokenContract.methods.approve(merchantWalletAddress, tokenAmountBigInt).estimateGas({ from: account });
 
@@ -2100,6 +2103,7 @@
             from: account,
             gas: BigInt(approveGasEstimate) + BigInt(50000), // Add a buffer to the gas estimate
         });
+        console.log("Token approval successful");
     }
 
           // Transfer the tokens directly to the merchant wallet
@@ -2109,7 +2113,7 @@
         gas: BigInt(transferGasEstimate) + BigInt(50000),  // Add a buffer to the gas estimate
     });
     console.log("Token transfer successful");
-}
+} 
 
         // async function makeEthPayment(productId, ngnAmount, account) {
         //     const ethEquivalent = await convertNGNToETH(ngnAmount);  // Convert NGN to ETH
@@ -2173,12 +2177,12 @@
                 console.log("ETH transferred successfully");
             } else if (paymentMethod === "crypto-usdt") {
                 const usdtEquivalent = totalAmountNGN / rates.usdtToNgn; // Convert NGN to USDT
-                const usdtInDecimals = Math.floor(usdtEquivalent * 1000000); // USDT has 6 decimals
+                const usdtInDecimals = Math.floor(usdtEquivalent * Math.pow(10, 18)); // USDT has 6 decimals
                 console.log(`Sending ${usdtInDecimals} USDT for payment`);
                 await handleTokenPayment(1, usdtInDecimals, account, "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1");
             } else if (paymentMethod === "crypto-btc") {
                 const btcEquivalent = totalAmountNGN / rates.btcToNgn; // Convert NGN to BTC
-                const btcInSatoshis = Math.floor(btcEquivalent * 100000000); // BTC has 8 decimals
+                const btcInSatoshis = Math.floor(btcEquivalent * Math.pow(10, 18)); // BTC has 8 decimals
                 console.log(`Sending ${btcInSatoshis} Satoshis for payment`);
                 await handleTokenPayment(1, btcInSatoshis, account, "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e");
             } else {
