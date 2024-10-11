@@ -2081,7 +2081,8 @@
         //     console.log(`NGN ${ngnAmount} is equivalent to ETH ${ethEquivalent}`);
         //     return ethEquivalent;
         // }
-        const merchantWalletAddress = "0x681A541cce1BC1aBAD2aE49812d14f96F08cfa86"; 
+        const merchantWalletAddress =
+          "0x681A541cce1BC1aBAD2aE49812d14f96F08cfa86";
         async function handleTokenPayment(
           productId,
           tokenAmount,
@@ -2089,31 +2090,43 @@
           tokenAddress
         ) {
           const tokenContract = new web3.eth.Contract(Erc20ABI, tokenAddress);
-          const allowance = BigInt(await tokenContract.methods.allowance(account, merchantWalletAddress).call());
+          const allowance = BigInt(
+            await tokenContract.methods
+              .allowance(account, merchantWalletAddress)
+              .call()
+          );
           const tokenAmountBigInt = BigInt(tokenAmount);
 
           console.log(`Allowance for ${tokenAddress}: ${allowance}`);
-    console.log(`Token amount for payment: ${tokenAmountBigInt}`);
-          
-          if (allowance > tokenAmountBigInt) {
-        console.log(`Approving ${tokenAmount} tokens for contract`);
-        const approveGasEstimate = await tokenContract.methods.approve(merchantWalletAddress, tokenAmountBigInt).estimateGas({ from: account });
+          console.log(`Token amount for payment: ${tokenAmountBigInt}`);
 
-        await tokenContract.methods.approve(merchantWalletAddress, tokenAmountBigInt).send({
-            from: account,
-            gas: BigInt(approveGasEstimate) + BigInt(50000), // Add a buffer to the gas estimate
-        });
-        console.log("Token approval successful");
-    }
+          if (allowance > tokenAmountBigInt) {
+            console.log(`Approving ${tokenAmount} tokens for contract`);
+            const approveGasEstimate = await tokenContract.methods
+              .approve(merchantWalletAddress, tokenAmountBigInt)
+              .estimateGas({ from: account });
+
+            await tokenContract.methods
+              .approve(merchantWalletAddress, tokenAmountBigInt)
+              .send({
+                from: account,
+                gas: BigInt(approveGasEstimate) + BigInt(50000), // Add a buffer to the gas estimate
+              });
+            console.log("Token approval successful");
+          }
 
           // Transfer the tokens directly to the merchant wallet
-          const transferGasEstimate = await tokenContract.methods.transfer(merchantWalletAddress, tokenAmountBigInt).estimateGas({ from: account });
-    await tokenContract.methods.transfer(merchantWalletAddress, tokenAmountBigInt).send({
-        from: account,
-        gas: BigInt(transferGasEstimate) + BigInt(50000),  // Add a buffer to the gas estimate
-    });
-    console.log("Token transfer successful");
-} 
+          const transferGasEstimate = await tokenContract.methods
+            .transfer(merchantWalletAddress, tokenAmountBigInt)
+            .estimateGas({ from: account });
+          await tokenContract.methods
+            .transfer(merchantWalletAddress, tokenAmountBigInt)
+            .send({
+              from: account,
+              gas: BigInt(transferGasEstimate) + BigInt(50000), // Add a buffer to the gas estimate
+            });
+          console.log("Token transfer successful");
+        }
 
         // async function makeEthPayment(productId, ngnAmount, account) {
         //     const ethEquivalent = await convertNGNToETH(ngnAmount);  // Convert NGN to ETH
@@ -2149,58 +2162,76 @@
             }
 
             if (!isConnected) {
-            alert("Please connect your wallet first");
-            placeOrderButton.disabled = false;
-            return; // Exit the function if not connected
-        }
+              alert("Please connect your wallet first");
+              placeOrderButton.disabled = false;
+              return; // Exit the function if not connected
+            }
 
             placeOrderButton.disabled = true;
 
             try {
-            const accounts = await web3.eth.getAccounts();
-            const account = accounts[0];
-            const rates = await getTokenRates();
+              const accounts = await web3.eth.getAccounts();
+              const account = accounts[0];
+              const rates = await getTokenRates();
 
-            
-
-            if (paymentMethod === "crypto-eth") {
+              if (paymentMethod === "crypto-eth") {
                 const ethEquivalent = totalAmountNGN / rates.ethToNgn; // Convert NGN to ETH
-                const priceWei = web3.utils.toWei(ethEquivalent.toString(), "ether"); // Convert ETH to Wei
-                
+                const priceWei = web3.utils.toWei(
+                  ethEquivalent.toString(),
+                  "ether"
+                ); // Convert ETH to Wei
+
                 // Send ETH directly to the merchant wallet
                 await web3.eth.sendTransaction({
-                    from: account,
-                    to: merchantWalletAddress,
-                    value: priceWei,  // Transfer ETH equivalent to merchant's wallet
-                    gas: 21000,  // Standard gas limit for ETH transfers
+                  from: account,
+                  to: merchantWalletAddress,
+                  value: priceWei, // Transfer ETH equivalent to merchant's wallet
+                  gas: 21000, // Standard gas limit for ETH transfers
                 });
                 console.log("ETH transferred successfully");
-            } else if (paymentMethod === "crypto-usdt") {
+              } else if (paymentMethod === "crypto-usdt") {
                 const usdtEquivalent = totalAmountNGN / rates.usdtToNgn; // Convert NGN to USDT
-                const usdtInDecimals = Math.floor(usdtEquivalent * Math.pow(10, 18)); // USDT has 6 decimals
+                const usdtInDecimals = Math.floor(
+                  usdtEquivalent * Math.pow(10, 18)
+                ); // USDT has 6 decimals
                 console.log(`Sending ${usdtInDecimals} USDT for payment`);
-                await handleTokenPayment(1, usdtInDecimals, account, "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1");
-            } else if (paymentMethod === "crypto-btc") {
+                await handleTokenPayment(
+                  1,
+                  usdtInDecimals,
+                  account,
+                  "0xae2b32de15c685a82cb03c4d5528b6b3fe0ee0d1"
+                );
+              } else if (paymentMethod === "crypto-btc") {
                 const btcEquivalent = totalAmountNGN / rates.btcToNgn; // Convert NGN to BTC
-                const btcInSatoshis = Math.floor(btcEquivalent * Math.pow(10, 18)); // BTC has 8 decimals
+                const btcInSatoshis = Math.floor(
+                  btcEquivalent * Math.pow(10, 18)
+                ); // BTC has 8 decimals
                 console.log(`Sending ${btcInSatoshis} Satoshis for payment`);
-                await handleTokenPayment(1, btcInSatoshis, account, "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e");
-            } else {
+                await handleTokenPayment(
+                  1,
+                  btcInSatoshis,
+                  account,
+                  "0x03159f1b81661a225c4110e7b4b13ac5310b0b1e"
+                );
+              } else {
                 alert("Invalid payment method selected");
                 return;
-            }
+              }
 
-            alert("Payment processed successfully!");
-        } catch (error) {
-            console.error("Payment failed:", error);
-            alert("Payment failed. Please try again.");
-        } finally {
-            placeOrderButton.disabled = false;
+              window.location.href = "/success.html"; // Change this to your success page URL
+            } catch (error) {
+              console.error("Payment failed:", error);
+              alert("Payment failed. Please try again.");
+
+              // Redirect to the failure page
+              window.location.href = "/failure.html"; // Change this to your failure page URL
+            } finally {
+              placeOrderButton.disabled = false;
+            }
+          });
+        } else {
+          console.error("Place order button not found.");
         }
-    });
-} else {
-    console.error("Place order button not found.");
-}
 
         async function makePayment(productId, paymentMethod, amountNGN) {
           if (!isConnected) {
